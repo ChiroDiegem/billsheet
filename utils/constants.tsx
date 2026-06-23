@@ -1,34 +1,4 @@
-export const posts = [
-  "Acti",
-  "BR",
-  "Beheer",
-  "Commu",
-  "Cultuur",
-  "Cudi",
-  "Dev",
-  "Fakbar",
-  "Internationaal",
-  "IT",
-  "Logi",
-  "Lustrum",
-  "Onderwijs",
-  "Praeses",
-  "Secretaris",
-  "Sport",
-  "Theokot",
-  "Vice",
-  "Ploeg",
-  "Jaarwerking",
-  "BEST",
-  "Biomedix",
-  "Chemix",
-  "Existenz",
-  "Statix",
-  "IAESTE",
-  "Mechanix",
-  "Revue",
-  "Lolploeg",
-];
+export const posts = ["kookploeg", "vzw", "leiding"];
 
 export const categorie = [
   "Chiro Werking",
@@ -38,8 +8,6 @@ export const categorie = [
   "Lokaal",
   "Varia",
 ];
-
-export const roles = ["kookploeg", "vzw", "leiding"];
 
 export const PAYMENT_METHODS = [
   { value: "personal", label: "Persoonlijk" },
