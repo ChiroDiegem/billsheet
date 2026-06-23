@@ -292,7 +292,7 @@ export default function BillList({ adminMode = false, currentUser }: IBillList) 
     if (loading && bills.length === 0) {
         return (
             <div className="flex justify-center items-center min-h-[50vh]">
-                <Loader size="xl" color="vtk-yellow" />
+                <Loader size="xl" color="primary-color" />
             </div>
         );
     }
@@ -325,7 +325,7 @@ export default function BillList({ adminMode = false, currentUser }: IBillList) 
 
     return (
         <div className="w-full px-4 py-6 md:py-10 md:px-6">
-            <h1 className="text-2xl lg:text-3xl font-bold border-b-8 border-vtk-yellow">
+            <h1 className="text-2xl lg:text-3xl font-bold border-b-8 border-primary-color">
                 {adminMode ? 'All Bills' : 'My Bills'}
             </h1>
             {/* Only show storage if in Admin Mode and data is loaded */}
@@ -527,7 +527,7 @@ export default function BillList({ adminMode = false, currentUser }: IBillList) 
                     {/* Desktop Table View */}
                     <MediaQuery smallerThan="md" styles={{ display: 'none' }}>
                         <Table className="min-w-full">
-                            <thead className="border-b-4 border-vtk-yellow">
+                            <thead className="border-b-4 border-primary-color">
                                 <tr>
                                     <td className="pr-4" style={{ maxWidth: '250px' }}>
                                         <b>Omschrijving</b>
@@ -558,7 +558,7 @@ export default function BillList({ adminMode = false, currentUser }: IBillList) 
                                     </td>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-vtk-yellow">
+                            <tbody className="divide-y divide-primary-color">
                                 {currentBills.map((bill: IBill) => (
                                     <BillListItem
                                         key={bill.id}

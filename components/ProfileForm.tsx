@@ -63,7 +63,7 @@ export default function ProfileForm() {
     if (!user) {
         return (
             <div className="flex justify-center items-center min-h-[200px]">
-                <Loader size="md" color="vtk-yellow" />
+                <Loader size="md" color="primary-color" />
             </div>
         );
     }
@@ -72,7 +72,7 @@ export default function ProfileForm() {
         <Paper shadow="xs" radius="md" className="w-full mx-auto">
             <Box className="p-4 sm:p-6 md:p-8">
                 <div className="flex justify-between items-center mb-6">
-                    <Text size="xl" weight={700} className="text-vtk-blue border-b-4 border-vtk-yellow pb-2">
+                    <Text size="xl" weight={700} className="text-vtk-blue border-b-4 border-primary-color pb-2">
                         Mijn Profiel
                     </Text>
                     <Button variant="subtle" color="gray" onClick={handleLogout}>
@@ -110,7 +110,7 @@ export default function ProfileForm() {
 
                     <div className="flex justify-end mt-6">
                         <Button
-                            color="vtk-yellow"
+                            color="primary-color"
                             onClick={updateProfile}
                             loading={loading}
                             className="w-full sm:w-auto"

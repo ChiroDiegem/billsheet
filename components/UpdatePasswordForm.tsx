@@ -75,7 +75,7 @@ export default function UpdatePasswordForm() {
 
             <Button
                 type="submit"
-                color="vtk-yellow.5"
+                color="primary-color.5"
                 loading={isLoading}
                 disabled={isLoading}
             >

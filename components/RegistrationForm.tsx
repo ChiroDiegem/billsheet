@@ -108,7 +108,7 @@ export default function RegistrationForm() {
             )}
             
             <Button 
-                color="vtk-yellow" 
+                color="primary-color" 
                 type="submit"
                 loading={loading}
                 fullWidth

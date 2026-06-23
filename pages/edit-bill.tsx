@@ -38,8 +38,8 @@ export default function EditBill({ bill }: { bill: IBill }) {
                 </div>
                 <Button
                     onClick={() => router.push('/admin')}
-                    color="vtk-yellow.5"
-                    className="bg-vtk-yellow h-[2em]"
+                    color="primary-color.5"
+                    className="bg-primary-color h-[2em]"
                 >
                     Back to Admin Page
                 </Button>
@@ -113,9 +113,9 @@ export default function EditBill({ bill }: { bill: IBill }) {
     }
 
     return (
-        <div className="flex justify-center align-center border-2 border-vtk-yellow rounded-lg p-4 sm:p-10">
+        <div className="flex justify-center align-center border-2 border-primary-color rounded-lg p-4 sm:p-10">
             <form className="flex align-center flex-col w-full max-w-md space-y-2" onSubmit={updateBill}>
-                <h1 className="text-3xl font-bold border-b-4 border-vtk-yellow m-6">Edit Bill</h1>
+                <h1 className="text-3xl font-bold border-b-4 border-primary-color m-6">Edit Bill</h1>
                 <TextInput
                     label="Name"
                     required
@@ -182,8 +182,8 @@ export default function EditBill({ bill }: { bill: IBill }) {
                     />
                 )}
                 <Button
-                    color="vtk-yellow.5"
-                    className="bg-vtk-yellow h-[2em]"
+                    color="primary-color.5"
+                    className="bg-primary-color h-[2em]"
                     type="submit"
                     loading={loading}
                 >

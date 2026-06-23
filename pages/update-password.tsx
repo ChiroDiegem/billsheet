@@ -11,7 +11,7 @@ const UpdatePasswordPage: NextPage = () => {
     if (session === undefined) {
         return (
             <div className="flex justify-center items-center min-h-[50vh]">
-                <Loader size="xl" color="vtk-yellow" />
+                <Loader size="xl" color="primary-color" />
             </div>
         );
     }

@@ -11,7 +11,7 @@ export default function Account() {
     if (isLoading) {
         return (
             <div className="flex justify-center items-center min-h-[50vh]">
-                <Loader size="xl" color="vtk-yellow" />
+                <Loader size="xl" color="primary-color" />
             </div>
         );
     }

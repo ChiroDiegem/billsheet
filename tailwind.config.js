@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'vtk-yellow': '#ffd400'
+        'primary-color': '#d04040'
       }
     },
   },

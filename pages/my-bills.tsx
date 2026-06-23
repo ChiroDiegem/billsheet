@@ -19,7 +19,7 @@ export default function MyBills() {
     if (isLoading) {
         return (
             <div className="flex justify-center items-center min-h-[50vh]">
-                <Loader size="xl" color="vtk-yellow" />
+                <Loader size="xl" color="primary-color" />
             </div>
         );
     }
@@ -28,7 +28,7 @@ export default function MyBills() {
     if (!user) {
         return (
             <div className="flex justify-center items-center min-h-[50vh]">
-                <Loader size="xl" color="vtk-yellow" />
+                <Loader size="xl" color="primary-color" />
             </div>
         );
     }

@@ -194,7 +194,7 @@ export default function Users() {
     if (isLoading) {
         return (
             <div className="flex justify-center items-center min-h-[50vh]">
-                <Loader size="xl" color="vtk-yellow" />
+                <Loader size="xl" color="primary-color" />
             </div>
         );
     }
@@ -203,7 +203,7 @@ export default function Users() {
     if (currentUser === null || (currentUser && currentUser.admin === false)) {
         return (
             <div className="flex justify-center items-center min-h-[50vh]">
-                <Loader size="xl" color="vtk-yellow" />
+                <Loader size="xl" color="primary-color" />
             </div>
         );
     }
@@ -213,14 +213,14 @@ export default function Users() {
             <div className="flex flex-col w-full px-4 py-6 md:py-10 md:px-6">
                 <div className="w-full max-w-6xl mx-auto">
                     <div className="flex items-center justify-between mb-6">
-                        <h1 className="text-2xl md:text-3xl font-bold border-b-4 border-vtk-yellow pb-2">
+                        <h1 className="text-2xl md:text-3xl font-bold border-b-4 border-primary-color pb-2">
                             Users Management
                         </h1>
                     </div>
 
                     {loading ? (
                         <div className="flex justify-center items-center min-h-[30vh]">
-                            <Loader size="xl" color="vtk-yellow" />
+                            <Loader size="xl" color="primary-color" />
                         </div>
                     ) : (
                         <>
@@ -228,7 +228,7 @@ export default function Users() {
                             <MediaQuery largerThan="md" styles={{ display: 'none' }}>
                                 <div className="space-y-4">
                                     {currentUsers.map((user) => (
-                                        <Card key={user.id} shadow="sm" padding="lg" radius="md" withBorder className="border-l-4 border-vtk-yellow">
+                                        <Card key={user.id} shadow="sm" padding="lg" radius="md" withBorder className="border-l-4 border-primary-color">
                                             <div className="flex flex-col space-y-2">
                                                 <div className="flex justify-between items-start">
                                                     <Text weight={700} size="lg">{user.name}</Text>
@@ -324,7 +324,7 @@ export default function Users() {
                             <MediaQuery smallerThan="md" styles={{ display: 'none' }}>
                                 <Box className="overflow-x-auto">
                                     <Table className="min-w-full">
-                                        <thead className="border-b-4 border-vtk-yellow">
+                                        <thead className="border-b-4 border-primary-color">
                                             <tr>
                                                 <th><b>Name</b></th>
                                                 <th><b>Post</b></th>
@@ -499,7 +499,7 @@ export default function Users() {
                 <Group position="apart" mt="xl">
                     <Button variant="outline" onClick={() => setPostAdminModalOpen(false)}>Cancel</Button>
                     <Button
-                        color="vtk-yellow"
+                        color="primary-color"
                         onClick={async () => {
                             if (!userToEdit) return;
                             try {

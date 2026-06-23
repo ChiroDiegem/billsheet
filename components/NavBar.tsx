@@ -50,7 +50,7 @@ export default function NavBar() {
         <>
             {/* Desktop Navbar */}
             <MediaQuery smallerThan="md" styles={{ display: 'none' }}>
-                <nav className="bg-slate-100 border-b-4 border-vtk-yellow shadow-sm">
+                <nav className="bg-slate-100 border-b-4 border-primary-color shadow-sm">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-between h-16">
                             <div className="flex">
@@ -116,7 +116,7 @@ export default function NavBar() {
 
             {/* Mobile Navbar */}
             <MediaQuery largerThan="md" styles={{ display: 'none' }}>
-                <nav className="bg-slate-100 border-b-4 border-vtk-yellow shadow-sm">
+                <nav className="bg-slate-100 border-b-4 border-primary-color shadow-sm">
                     <div className="px-4 h-14 flex items-center justify-between">
                         <Link href="/">
                             <span className="font-bold text-xl text-gray-800">BillSheet</span>

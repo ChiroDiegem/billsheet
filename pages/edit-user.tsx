@@ -86,7 +86,7 @@ export default function EditUser({ user }: EditUserProps) {
     if (checkingAuth) {
         return (
             <div className="flex justify-center items-center min-h-[50vh]">
-                <Loader size="xl" color="vtk-yellow" />
+                <Loader size="xl" color="primary-color" />
             </div>
         );
     }
@@ -95,7 +95,7 @@ export default function EditUser({ user }: EditUserProps) {
     if (!profile?.admin) {
         return (
             <div className="flex justify-center items-center min-h-[50vh]">
-                <Loader size="xl" color="vtk-yellow" />
+                <Loader size="xl" color="primary-color" />
             </div>
         );
     }
@@ -103,7 +103,7 @@ export default function EditUser({ user }: EditUserProps) {
     if (!user) {
         return (
             <div className="flex justify-center items-center min-h-[50vh]">
-                <Loader size="xl" color="vtk-yellow" />
+                <Loader size="xl" color="primary-color" />
             </div>
         );
     }
@@ -113,7 +113,7 @@ export default function EditUser({ user }: EditUserProps) {
             <div className="w-full max-w-lg mx-auto">
                 <Paper shadow="sm" radius="md" className="w-full p-4 sm:p-6">
                     <div className="flex justify-between items-center mb-6">
-                        <Text size="xl" weight={700} className="text-vtk-blue border-b-4 border-vtk-yellow pb-2">
+                        <Text size="xl" weight={700} className="text-vtk-blue border-b-4 border-primary-color pb-2">
                             Edit User
                         </Text>
                         <Button
@@ -166,7 +166,7 @@ export default function EditUser({ user }: EditUserProps) {
                             </Button>
 
                             <Button
-                                color="vtk-yellow"
+                                color="primary-color"
                                 type="submit"
                                 loading={loading}
                                 fullWidth

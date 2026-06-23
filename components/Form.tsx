@@ -167,7 +167,7 @@ export default function Form() {
         return (
             <Paper shadow="xs" radius="md" className="w-full mx-auto">
                 <Box className="p-4 sm:p-6 md:p-8 flex justify-center items-center" style={{ minHeight: "300px" }}>
-                    <Loader size="xl" color="vtk-yellow" />
+                    <Loader size="xl" color="primary-color" />
                 </Box>
             </Paper>
         );
@@ -177,7 +177,7 @@ export default function Form() {
         <Paper shadow="xs" radius="md" className="w-full mx-auto">
             <Box className="p-4 sm:p-6 md:p-8">
                 <form className="w-full">
-                    <h1 className="text-2xl md:text-3xl font-bold border-b-4 border-vtk-yellow mb-6 pb-2">
+                    <h1 className="text-2xl md:text-3xl font-bold border-b-4 border-primary-color mb-6 pb-2">
                         Rekeningenblad
                     </h1>
 
@@ -283,7 +283,7 @@ export default function Form() {
 
                         {/* Submit button */}
                         <Button
-                            color="vtk-yellow"
+                            color="primary-color"
                             onClick={sendBill}
                             fullWidth
                             size="md"

@@ -76,7 +76,7 @@ export default function ResetPasswordForm() {
 
             <Button
                 type="submit"
-                color="vtk-yellow"
+                color="primary-color"
                 loading={isLoading}
                 disabled={isLoading}
                 fullWidth

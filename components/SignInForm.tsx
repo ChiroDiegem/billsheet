@@ -65,7 +65,7 @@ export default function SignInForm() {
 
             <Button
                 type="submit"
-                color="vtk-yellow.5"
+                color="primary-color.5"
                 fullWidth
                 loading={loading}
                 className="mt-2"
