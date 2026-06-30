@@ -9,6 +9,26 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      email_whitelist: {
+        Row: {
+          id: number
+          email: string
+          added_by: string
+          created_at: string | null
+        }
+        Insert: {
+          id?: number
+          email: string
+          added_by: string
+          created_at?: string | null
+        }
+        Update: {
+          id?: number
+          email?: string
+          added_by?: string
+          created_at?: string | null
+        }
+      }
       bills: {
         Row: {
           activity: string

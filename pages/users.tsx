@@ -2,11 +2,17 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useSupabase } from '../contexts/SupabaseContext';
 import { Profile } from "../types";
-import { Button, Table, Group, Modal, Text, Loader, Tooltip, Paper, Box, MediaQuery, Badge, Card, Pagination, Select } from "@mantine/core";
+import { Button, Table, Group, Modal, Text, Loader, Tooltip, Paper, Box, MediaQuery, Badge, Card, Pagination, Select, TextInput } from "@mantine/core";
 import { notifications } from '@mantine/notifications';
 import { FiEdit, FiTrash2, FiUser, FiCheck, FiX } from "react-icons/fi";
 import { posts } from '../utils/constants';
 
+type WhitelistEntry = {
+    id: number;
+    email: string;
+    added_by: string;
+    created_at: string | null;
+};
 
 export default function Users() {
     const { user: currentUser, isLoading } = useSupabase();
@@ -23,6 +29,10 @@ export default function Users() {
 
     const [postAdminModalOpen, setPostAdminModalOpen] = useState(false);
     const [userToEdit, setUserToEdit] = useState<Profile | null>(null);
+    const [whitelistModalOpen, setWhitelistModalOpen] = useState(false);
+    const [whitelist, setWhitelist] = useState<WhitelistEntry[]>([]);
+    const [whitelistEmail, setWhitelistEmail] = useState("");
+    const [whitelistLoading, setWhitelistLoading] = useState(false);
 
     // Pagination states
     const [currentPage, setCurrentPage] = useState(1);
@@ -103,6 +113,98 @@ export default function Users() {
         const latestUser = users.find(u => u.id === user.id) || user;
         setUserToEdit({ ...latestUser });
         setPostAdminModalOpen(true);
+    };
+
+    const fetchWhitelist = async () => {
+        setWhitelistLoading(true);
+        try {
+            const response = await fetch('/api/getWhitelist');
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.error || 'Failed to fetch whitelist');
+            }
+
+            setWhitelist(result.whitelist || []);
+        } catch (error) {
+            console.error("Error fetching whitelist:", error);
+            notifications.show({
+                title: "Error",
+                message: error instanceof Error ? error.message : "Failed to fetch whitelist",
+                color: "red",
+            });
+        } finally {
+            setWhitelistLoading(false);
+        }
+    };
+
+    const openWhitelistModal = () => {
+        setWhitelistModalOpen(true);
+        fetchWhitelist();
+    };
+
+    const addWhitelistEmail = async () => {
+        const email = whitelistEmail.trim().toLowerCase();
+        if (!email) return;
+
+        setWhitelistLoading(true);
+        try {
+            const response = await fetch('/api/addToWhitelist', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+            });
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.error || 'Failed to add email');
+            }
+
+            setWhitelistEmail("");
+            await fetchWhitelist();
+            notifications.show({
+                title: "Success",
+                message: "Email added to whitelist",
+                color: "green",
+            });
+        } catch (error) {
+            console.error("Error adding whitelist email:", error);
+            notifications.show({
+                title: "Error",
+                message: error instanceof Error ? error.message : "Failed to add email",
+                color: "red",
+            });
+            setWhitelistLoading(false);
+        }
+    };
+
+    const removeWhitelistEmail = async (email: string) => {
+        setWhitelistLoading(true);
+        try {
+            const response = await fetch(`/api/removeFromWhitelist?email=${encodeURIComponent(email)}`, {
+                method: 'DELETE',
+            });
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.error || 'Failed to remove email');
+            }
+
+            await fetchWhitelist();
+            notifications.show({
+                title: "Success",
+                message: "Email removed from whitelist",
+                color: "green",
+            });
+        } catch (error) {
+            console.error("Error removing whitelist email:", error);
+            notifications.show({
+                title: "Error",
+                message: error instanceof Error ? error.message : "Failed to remove email",
+                color: "red",
+            });
+            setWhitelistLoading(false);
+        }
     };
 
     const confirmAdminToggle = async () => {
@@ -425,6 +527,20 @@ export default function Users() {
                                 Showing {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, users.length)} of {users.length} users
                             </Text>
 
+                            {currentUser?.admin === true && (
+                                <Paper withBorder p="md" mt="xl">
+                                    <Group position="apart">
+                                        <div>
+                                            <Text weight={700}>Email Whitelist</Text>
+                                            <Text size="sm" color="dimmed">Allow individual email addresses outside the configured domains.</Text>
+                                        </div>
+                                        <Button onClick={openWhitelistModal}>
+                                            Manage Email Whitelist
+                                        </Button>
+                                    </Group>
+                                </Paper>
+                            )}
+
                             {/* Mobile action button */}
                             <div className="md:hidden mt-4 flex justify-center">
                                 <Button
@@ -541,6 +657,63 @@ export default function Users() {
 
 
             {/* Delete User Modal */}
+            <Modal
+                opened={whitelistModalOpen}
+                onClose={() => setWhitelistModalOpen(false)}
+                title={<Text weight={700}>Email Whitelist</Text>}
+                centered
+                size="lg"
+            >
+                <Group align="flex-end" mb="lg">
+                    <TextInput
+                        label="Email"
+                        placeholder="name@example.com"
+                        value={whitelistEmail}
+                        onChange={(event) => setWhitelistEmail(event.currentTarget.value)}
+                        type="email"
+                        style={{ flex: 1 }}
+                    />
+                    <Button onClick={addWhitelistEmail} loading={whitelistLoading}>
+                        Add
+                    </Button>
+                </Group>
+
+                {whitelistLoading && whitelist.length === 0 ? (
+                    <div className="flex justify-center py-6">
+                        <Loader size="md" color="primary-color" />
+                    </div>
+                ) : whitelist.length > 0 ? (
+                    <div className="space-y-2">
+                        {whitelist.map((entry) => (
+                            <Paper key={entry.id} withBorder p="sm">
+                                <Group position="apart">
+                                    <div>
+                                        <Text>{entry.email}</Text>
+                                        {entry.created_at && (
+                                            <Text size="xs" color="dimmed">
+                                                Added {new Date(entry.created_at).toLocaleDateString()}
+                                            </Text>
+                                        )}
+                                    </div>
+                                    <Button
+                                        variant="subtle"
+                                        color="red"
+                                        onClick={() => removeWhitelistEmail(entry.email)}
+                                        loading={whitelistLoading}
+                                    >
+                                        <FiX size={18} />
+                                    </Button>
+                                </Group>
+                            </Paper>
+                        ))}
+                    </div>
+                ) : (
+                    <Text color="dimmed" align="center" py="lg">
+                        No whitelisted emails yet
+                    </Text>
+                )}
+            </Modal>
+
             <Modal
                 opened={deleteModalOpen}
                 onClose={() => setDeleteModalOpen(false)}

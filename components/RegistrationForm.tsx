@@ -3,6 +3,7 @@ import { notifications } from "@mantine/notifications";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { posts, allowedEmailDomains } from "../utils/constants";
+import { isEmailAllowed } from "../utils/emailValidation";
 
 export default function RegistrationForm() {
   const [name, setName] = useState("");
@@ -19,13 +20,33 @@ export default function RegistrationForm() {
     setLoading(true);
 
     try {
+      const normalizedEmail = email.trim().toLowerCase();
+      if (!isEmailAllowed(normalizedEmail)) {
+        const whitelistResponse = await fetch("/api/checkWhitelist", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: normalizedEmail }),
+        });
+
+        const whitelistData = await whitelistResponse.json();
+        if (!whitelistResponse.ok) {
+          throw new Error(whitelistData.error || "Failed to check email whitelist");
+        }
+
+        if (whitelistData.whitelisted !== true) {
+          throw new Error("Dit emailadres is niet toegestaan voor registratie");
+        }
+      }
+
       const response = await fetch("/api/registerUser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email,
+          email: normalizedEmail,
           password,
           name,
           post,
