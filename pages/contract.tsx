@@ -3,6 +3,7 @@ import { useSupabase } from "../contexts/SupabaseContext";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import BillList from "../components/BillList";
+import { canCreateContract } from "../utils/permissions";
 
 export default function MyBills() {
   const { user, isLoading } = useSupabase();
@@ -29,6 +30,14 @@ export default function MyBills() {
     return (
       <div className="flex justify-center items-center min-h-[50vh]">
         <Loader size="xl" color="primary-color" />
+      </div>
+    );
+  }
+
+  if (!canCreateContract(user.post)) {
+    return (
+      <div className="p-8 text-xl text-center">
+        Access Denied - You don't have permission to view contracts
       </div>
     );
   }

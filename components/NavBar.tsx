@@ -15,6 +15,7 @@ import {
 } from "@mantine/core";
 import { IoLogOutOutline } from "react-icons/io5";
 import { FaUserCircle } from "react-icons/fa";
+import { canCreateContract, canCreateKassa } from "../utils/permissions";
 
 export default function NavBar() {
   const router = useRouter();
@@ -27,8 +28,12 @@ export default function NavBar() {
 
   if (user) {
     regularLinks.set("My Bills", "/my-bills");
-    regularLinks.set("Contracten", "/contract");
-    regularLinks.set("Kassa's", "/kassa");
+    if (canCreateContract(user.post)) {
+      regularLinks.set("Contracten", "/contract");
+    }
+    if (canCreateKassa(user.post)) {
+      regularLinks.set("Kassa's", "/kassa");
+    }
   }
 
   let adminLinks = new Map();
