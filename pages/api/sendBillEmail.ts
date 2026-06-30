@@ -4,6 +4,7 @@ import { requireAdmin } from '../../lib/authMiddleware';
 import { Resend } from 'resend';
 import { DEST_MAIL_ADDRESS, SOURCE_MAIL_ADDR } from '../../utils/constants';
 import { buildBillReportPdf } from '../../lib/billReport';
+import { sendEmail, isGoogleSmtpEnabled } from '../../lib/mail';
 
 // Initialize Resend
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -54,14 +55,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const { pdfBytes, filename: attachmentName } = await buildBillReportPdf(bill, imageBuffer, rotateValue);
         const pdfBuffer = Buffer.from(pdfBytes);
 
+        const subject = `[BILL] ${bill.post} - ${bill.name}`;
+        const textBody = `Hi,\n\nThis automatic email contains the Bill: < ${bill.desc} > submitted by < ${bill.name} > from post < ${bill.post} > .\n\nKind regards.`;
+
+        if (isGoogleSmtpEnabled()) {
+            const sent = await sendEmail({
+                to: toAddress,
+                subject: subject,
+                html: textBody.replace(/\n/g, '<br />'),
+                text: textBody,
+                attachments: [{ filename: attachmentName, content: pdfBuffer }],
+            });
+
+            if (sent) {
+                return res.status(200).json({ message: 'Email sent successfully via SMTP' });
+            }
+        }
+
         // Send Email using Resend
         if (!process.env.RESEND_API_KEY) {
             return res.status(500).json({ error: "Resend API key is not configured" });
         }
 
-        const subject = `[BILL] ${bill.post} - ${bill.name}`;
-        const textBody = `Hi,\n\nThis automatic email contains the Bill: < ${bill.desc} > submitted by < ${bill.name} > from post < ${bill.post} > .\n\nKind regards.`;
-        
         const fromAddress = process.env.RESEND_FROM_EMAIL || SOURCE_MAIL_ADDR;
 
         const { data, error: resendError } = await resend.emails.send({
