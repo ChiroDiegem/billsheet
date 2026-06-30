@@ -117,6 +117,11 @@ export default function Form() {
       });
 
       if (!error) {
+        // TODO: Send a background API request here once Google Drive upload is implemented server-side.
+        console.log(
+          `[Google Drive] Would upload file: ${formatDate(values.date)}_${values.post}_${values.activity}`,
+        );
+
         setSuccessAlert(true);
         setErrorAlert("");
 
