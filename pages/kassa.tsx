@@ -2,10 +2,9 @@ import { Loader } from "@mantine/core";
 import { useSupabase } from "../contexts/SupabaseContext";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import BillList from "../components/BillList";
-import { canCreateKassa } from "../utils/permissions";
+import KassaList from "../components/KassaList";
 
-export default function MyBills() {
+export default function KassaPage() {
   const { user, isLoading } = useSupabase();
   const router = useRouter();
 
@@ -34,14 +33,7 @@ export default function MyBills() {
     );
   }
 
-  if (!canCreateKassa(user.post)) {
-    return (
-      <div className="p-8 text-xl text-center">
-        Access Denied - You don't have permission to view kassa's
-      </div>
-    );
-  }
+  const isAdmin = user.admin || (user.allowed_posts != null && user.allowed_posts.trim().length > 0);
 
-  // Only render BillList if user is authenticated
-  return <BillList adminMode={false} currentUser={user} />;
+  return <KassaList adminMode={isAdmin} currentUser={user} />;
 }

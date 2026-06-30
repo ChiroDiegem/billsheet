@@ -12,4 +12,6 @@ import { Database } from "./supabase"
 // }
 
 export type IBill = Database['public']['Tables']['bills']['Row']
+export type IContract = Database['public']['Tables']['contracts']['Row']
+export type IKassa = Database['public']['Tables']['kassa']['Row']
 export type Profile = Database['public']['Tables']['profiles']['Row']

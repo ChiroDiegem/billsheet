@@ -79,6 +79,106 @@ export interface Database {
           uid?: string | null
         }
       }
+      contracts: {
+        Row: {
+          booked: boolean
+          category: string
+          created_at: string | null
+          date: string
+          deposit_returned: boolean
+          desc: string
+          file: string
+          id: number
+          name: string
+          rent: number
+          rent_received: boolean
+          security_deposit: number
+          security_deposit_received: boolean
+          uid: string
+        }
+        Insert: {
+          booked?: boolean
+          category?: string
+          created_at?: string | null
+          date?: string
+          deposit_returned?: boolean
+          desc?: string
+          file?: string
+          id?: number
+          name?: string
+          rent?: number
+          rent_received?: boolean
+          security_deposit?: number
+          security_deposit_received?: boolean
+          uid: string
+        }
+        Update: {
+          booked?: boolean
+          category?: string
+          created_at?: string | null
+          date?: string
+          deposit_returned?: boolean
+          desc?: string
+          file?: string
+          id?: number
+          name?: string
+          rent?: number
+          rent_received?: boolean
+          security_deposit?: number
+          security_deposit_received?: boolean
+          uid?: string
+        }
+      }
+      kassa: {
+        Row: {
+          id: number
+          uid: string
+          opened_by: string
+          closed_by: string | null
+          category: string
+          sub_category: string
+          opening_amount: Json
+          opening_total: number
+          closing_amount: Json | null
+          closing_total: number | null
+          is_open: boolean
+          booked: boolean
+          created_at: string | null
+          closed_at: string | null
+        }
+        Insert: {
+          id?: number
+          uid: string
+          opened_by: string
+          closed_by?: string | null
+          category: string
+          sub_category: string
+          opening_amount: Json
+          opening_total: number
+          closing_amount?: Json | null
+          closing_total?: number | null
+          is_open?: boolean
+          booked?: boolean
+          created_at?: string | null
+          closed_at?: string | null
+        }
+        Update: {
+          id?: number
+          uid?: string
+          opened_by?: string
+          closed_by?: string | null
+          category?: string
+          sub_category?: string
+          opening_amount?: Json
+          opening_total?: number
+          closing_amount?: Json | null
+          closing_total?: number | null
+          is_open?: boolean
+          booked?: boolean
+          created_at?: string | null
+          closed_at?: string | null
+        }
+      }
       profiles: {
         Row: {
           allowed_posts: string | null;

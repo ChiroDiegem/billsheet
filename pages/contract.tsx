@@ -2,10 +2,10 @@ import { Loader } from "@mantine/core";
 import { useSupabase } from "../contexts/SupabaseContext";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import BillList from "../components/BillList";
+import ContractList from "../components/ContractList";
 import { canCreateContract } from "../utils/permissions";
 
-export default function MyBills() {
+export default function ContractsPage() {
   const { user, isLoading } = useSupabase();
   const router = useRouter();
 
@@ -42,6 +42,8 @@ export default function MyBills() {
     );
   }
 
-  // Only render BillList if user is authenticated
-  return <BillList adminMode={false} currentUser={user} />;
+  const isAdmin =
+    user.admin || (user.allowed_posts != null && user.allowed_posts.trim().length > 0);
+
+  return <ContractList adminMode={isAdmin} currentUser={user} />;
 }
