@@ -76,7 +76,7 @@ export default function BillList({
   const [endDateInput, setEndDateInput] = useState("");
 
   const isSuperAdmin = currentUser?.admin || false;
-  const allowedPost = currentUser?.allowed_posts || "";
+  const readOnly = Boolean(adminMode && !isSuperAdmin && currentUser?.allowed_posts);
   // Function to fetch bills
   const fetchBills = async () => {
     setLoading(true);
@@ -97,18 +97,7 @@ export default function BillList({
         let data = await response.json();
         let fetchedBills = data.bills || [];
 
-        // Filter for post-level admins
-        let filteredBills = fetchedBills;
-        if (adminMode && !isSuperAdmin && currentUser?.allowed_posts) {
-          const allowedPostsArray = currentUser.allowed_posts
-            .split(",")
-            .map((p) => p.trim())
-            .filter(Boolean);
-          if (!allowedPostsArray.includes("leiding")) {
-            filteredBills = [];
-          }
-        }
-        setBills(filteredBills);
+        setBills(fetchedBills);
 
         // Extract unique values for filter dropdowns
         if (fetchedBills.length > 0) {
@@ -634,8 +623,9 @@ export default function BillList({
                     key={bill.id}
                     bill={bill}
                     onDelete={handleBillDeleted}
-                    adminMode={isSuperAdmin}
+                    adminMode={adminMode}
                     isMobile={false}
+                    readOnly={readOnly}
                   />
                 ))}
               </tbody>
@@ -650,8 +640,9 @@ export default function BillList({
                   key={bill.id}
                   bill={bill}
                   onDelete={handleBillDeleted}
-                  adminMode={isSuperAdmin}
+                  adminMode={adminMode}
                   isMobile={true}
+                  readOnly={readOnly}
                 />
               ))}
             </div>

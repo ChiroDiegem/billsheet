@@ -29,6 +29,7 @@ interface IBillListItem {
   onDelete?: () => void;
   adminMode?: boolean;
   isMobile?: boolean;
+  readOnly?: boolean;
 }
 
 export default function BillListItem({
@@ -36,6 +37,7 @@ export default function BillListItem({
   onDelete,
   adminMode = false,
   isMobile = false,
+  readOnly = false,
 }: IBillListItem) {
   const [paid, setPaid] = useState(bill.paid);
   const [booked, setBooked] = useState(bill.booked);
@@ -78,7 +80,7 @@ export default function BillListItem({
   }
 
   async function handlePaidChange(e: any) {
-    if (!adminMode) return;
+    if (!adminMode || readOnly) return;
     const newValue = e.target.checked;
     setPaid(newValue);
 
@@ -101,7 +103,7 @@ export default function BillListItem({
   }
 
   async function handleBookedChange(e: any) {
-    if (!adminMode) return;
+    if (!adminMode || readOnly) return;
     const newValue = e.target.checked;
     setBooked(newValue);
 
@@ -124,7 +126,7 @@ export default function BillListItem({
   }
 
   async function handleDelete() {
-    if (!adminMode) return;
+    if (!adminMode || readOnly) return;
     setIsDeleting(true);
     try {
       const response = await fetch(`/api/deleteBill?id=${bill.id}`, {
@@ -216,7 +218,7 @@ export default function BillListItem({
                 </Text>
 
                 {/* Paid */}
-                {adminMode ? (
+                {adminMode && !readOnly ? (
                   <Checkbox
                     checked={paid}
                     onChange={handlePaidChange}
@@ -230,7 +232,7 @@ export default function BillListItem({
                 )}
 
                 {/* Booked */}
-                {adminMode ? (
+                {adminMode && !readOnly ? (
                   <Checkbox
                     checked={booked}
                     onChange={handleBookedChange}
@@ -332,12 +334,14 @@ export default function BillListItem({
                   >
                     <AiOutlineMail size={16} />
                   </button>
-                  <button
-                    onClick={() => setShowDeleteModal(true)}
-                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700"
-                  >
-                    <AiOutlineDelete size={16} />
-                  </button>
+                  {!readOnly && (
+                    <button
+                      onClick={() => setShowDeleteModal(true)}
+                      className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700"
+                    >
+                      <AiOutlineDelete size={16} />
+                    </button>
+                  )}
                 </>
               )}
             </div>
@@ -395,7 +399,7 @@ export default function BillListItem({
       </td>
       <td>€ {bill.amount ? (bill.amount / 100).toFixed(2) : "0.00"}</td>
       <td>
-        {adminMode ? (
+        {adminMode && !readOnly ? (
           <Checkbox checked={paid} onChange={handlePaidChange} />
         ) : (
           <Badge color={paid ? "green" : "yellow"} variant="filled">
@@ -404,7 +408,7 @@ export default function BillListItem({
         )}
       </td>
       <td>
-        {adminMode ? (
+        {adminMode && !readOnly ? (
           <Checkbox checked={booked} onChange={handleBookedChange} />
         ) : (
           <Badge color={booked ? "green" : "yellow"} variant="filled">
@@ -452,11 +456,13 @@ export default function BillListItem({
               <AiOutlineMail />
             </button>
           </td>
-          <td>
-            <button onClick={() => setShowDeleteModal(true)}>
-              <AiOutlineDelete />
-            </button>
-          </td>
+          {!readOnly && (
+            <td>
+              <button onClick={() => setShowDeleteModal(true)}>
+                <AiOutlineDelete />
+              </button>
+            </td>
+          )}
         </>
       )}
       {downloadPreviewModal}
