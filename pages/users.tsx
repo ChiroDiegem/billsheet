@@ -365,7 +365,7 @@ export default function Users() {
                                                     <Button
                                                         variant="outline"
                                                         leftIcon={<FiEdit size={16} />}
-                                                        onClick={() => router.push(`/edit-user?id=${user.id}`)}
+                                                        onClick={() => router.push(`/users/${user.id}/edit`)}
                                                         className="flex-1"
                                                     >
                                                         Edit
@@ -464,7 +464,7 @@ export default function Users() {
                                                             <Button
                                                                 variant="outline"
                                                                 leftIcon={<FiEdit size={16} />}
-                                                                onClick={() => router.push(`/edit-user?id=${user.id}`)}
+                                                                onClick={() => router.push(`/users/${user.id}/edit`)}
                                                                 size="sm"
                                                             >
                                                                 Edit

@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
 import { useState, FormEvent } from "react";
-import { useUser } from "../contexts/SupabaseContext";
-import { IContract } from "../types";
+import { useUser } from "../../../contexts/SupabaseContext";
+import { IContract } from "../../../types";
 import { Button, TextInput, Select, NumberInput, Checkbox, Loader } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import { categorie } from "../utils/constants";
+import { categorie } from "../../../utils/constants";
 import { DatePickerInput } from "@mantine/dates";
-import { createAdminClient } from "../lib/supabase";
+import { createAdminClient } from "../../../lib/supabase";
 
 export default function EditContract({ contract }: { contract: IContract }) {
   const user = useUser();
@@ -46,7 +46,7 @@ export default function EditContract({ contract }: { contract: IContract }) {
           </p>
         </div>
         <Button
-          onClick={() => router.push("/contract")}
+          onClick={() => router.push("/contracts")}
           color="primary-color.5"
           className="bg-primary-color h-[2em]"
         >
@@ -105,7 +105,7 @@ export default function EditContract({ contract }: { contract: IContract }) {
         message: "Contract succesvol bijgewerkt",
       });
 
-      router.push("/contract");
+      router.push("/contracts");
     } catch (error: any) {
       console.error("Error updating contract:", error);
       notifications.show({

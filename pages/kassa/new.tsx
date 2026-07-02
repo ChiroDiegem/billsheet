@@ -12,10 +12,10 @@ import {
 } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 import { isNotEmpty, useForm } from "@mantine/form";
-import { useSupabase, useSupabaseClient } from "../contexts/SupabaseContext";
+import { useSupabase, useSupabaseClient } from "../../contexts/SupabaseContext";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { categorie, DENOMINATIONS } from "../utils/constants";
+import { categorie, DENOMINATIONS } from "../../utils/constants";
 
 type CoinCounts = Record<string, number>;
 

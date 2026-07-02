@@ -1,8 +1,8 @@
 import { Loader } from "@mantine/core";
-import { useSupabase } from "../contexts/SupabaseContext";
+import { useSupabase } from "../../contexts/SupabaseContext";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import KassaList from "../components/KassaList";
+import KassaList from "../../components/KassaList";
 
 export default function KassaPage() {
   const { user, isLoading } = useSupabase();

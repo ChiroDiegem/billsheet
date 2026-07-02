@@ -103,7 +103,7 @@ export default function NewContract() {
       if (!error) {
         setSuccessAlert(true);
         setErrorAlert("");
-        setTimeout(() => router.push("/contract"), 1500);
+        setTimeout(() => router.push("/contracts"), 1500);
       } else {
         setErrorAlert(error.message);
         setSuccessAlert(false);

@@ -1,8 +1,8 @@
 import { Loader } from "@mantine/core";
-import { useSupabase } from '../contexts/SupabaseContext';
+import { useSupabase } from '../../contexts/SupabaseContext';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import BillList from '../components/BillList';
+import BillList from '../../components/BillList';
 
 export default function MyBills() {
     const { user, isLoading } = useSupabase();

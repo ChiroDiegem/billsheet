@@ -79,7 +79,7 @@ export default function KassaListItem({
   const actionButtons = (
     <div className="flex justify-end gap-2">
       {kassa.is_open && (
-        <Link href={`/close-kassa?id=${kassa.id}`}>
+        <Link href={`/kassa/${kassa.id}/close`}>
           <Button color="primary-color" compact>
             Sluit kassa
           </Button>
@@ -88,7 +88,7 @@ export default function KassaListItem({
       {adminMode &&
         (!booked ? (
           <Link
-            href={`/edit-kassa?id=${kassa.id}`}
+            href={`/kassa/${kassa.id}/edit`}
             className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md hover:bg-gray-200"
           >
             <AiFillEdit size={16} />

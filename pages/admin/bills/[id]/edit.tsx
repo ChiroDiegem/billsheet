@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
 import { useState, useRef, FormEvent } from "react";
-import { useUser } from "../contexts/SupabaseContext";
-import { IBill } from "../types";
+import { useUser } from "../../../../contexts/SupabaseContext";
+import { IBill } from "../../../../types";
 import { Button, TextInput, Select, NumberInput } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import { categorie, PAYMENT_METHODS } from "../utils/constants";
+import { categorie, PAYMENT_METHODS } from "../../../../utils/constants";
 import { DatePickerInput } from "@mantine/dates";
-import { createAdminClient } from "../lib/supabase";
+import { createAdminClient } from "../../../../lib/supabase";
 
 export default function EditBill({ bill }: { bill: IBill }) {
   const user = useUser();
@@ -41,7 +41,7 @@ export default function EditBill({ bill }: { bill: IBill }) {
           </p>
         </div>
         <Button
-          onClick={() => router.push("/admin")}
+          onClick={() => router.push("/admin/bills")}
           color="primary-color.5"
           className="bg-primary-color h-[2em]"
         >
@@ -105,7 +105,7 @@ export default function EditBill({ bill }: { bill: IBill }) {
         message: "Bill updated successfully",
       });
 
-      router.push("/admin");
+      router.push("/admin/bills");
     } catch (error) {
       console.error("Error updating bill:", error);
 

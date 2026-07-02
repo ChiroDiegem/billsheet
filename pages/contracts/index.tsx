@@ -1,9 +1,9 @@
 import { Loader } from "@mantine/core";
-import { useSupabase } from "../contexts/SupabaseContext";
+import { useSupabase } from "../../contexts/SupabaseContext";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import ContractList from "../components/ContractList";
-import { canCreateContract } from "../utils/permissions";
+import ContractList from "../../components/ContractList";
+import { canCreateContract } from "../../utils/permissions";
 
 export default function ContractsPage() {
   const { user, isLoading } = useSupabase();

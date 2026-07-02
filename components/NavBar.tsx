@@ -27,9 +27,9 @@ export default function NavBar() {
   regularLinks.set("Home", "/");
 
   if (user) {
-    regularLinks.set("My Bills", "/my-bills");
+    regularLinks.set("My Bills", "/bills");
     if (canCreateContract(user.post)) {
-      regularLinks.set("Contracten", "/contract");
+      regularLinks.set("Contracten", "/contracts");
     }
     if (canCreateKassa(user.post)) {
       regularLinks.set("Kassa's", "/kassa");
@@ -40,7 +40,7 @@ export default function NavBar() {
   const isPostAdmin =
     user?.allowed_posts && user.allowed_posts.trim().length > 0;
   if (user?.admin || isPostAdmin) {
-    adminLinks.set("All Bills", "/admin");
+    adminLinks.set("All Bills", "/admin/bills");
   }
   if (user?.admin) {
     adminLinks.set("Users", "/users");

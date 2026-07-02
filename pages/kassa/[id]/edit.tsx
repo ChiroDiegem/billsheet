@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
 import { useState, FormEvent } from "react";
-import { useUser } from "../contexts/SupabaseContext";
-import { IKassa } from "../types";
+import { useUser } from "../../../contexts/SupabaseContext";
+import { IKassa } from "../../../types";
 import { Button, Checkbox, Loader, TextInput } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import { createAdminClient } from "../lib/supabase";
+import { createAdminClient } from "../../../lib/supabase";
 
 export default function EditKassa({ kassa }: { kassa: IKassa }) {
   const user = useUser();

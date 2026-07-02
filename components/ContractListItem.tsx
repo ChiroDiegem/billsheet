@@ -175,7 +175,7 @@ export default function ContractListItem({
     <div className="flex justify-end gap-2">
       {!editDisabled ? (
         <Link
-          href={`/edit-contract?id=${contract.id}`}
+          href={`/contracts/${contract.id}/edit`}
           className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md hover:bg-gray-200"
         >
           <AiFillEdit size={16} />

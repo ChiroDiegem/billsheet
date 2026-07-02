@@ -11,9 +11,9 @@ import {
 } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 import { notifications } from "@mantine/notifications";
-import { IKassa } from "../types";
-import { createAdminClient } from "../lib/supabase";
-import { DENOMINATIONS } from "../utils/constants";
+import { IKassa } from "../../../types";
+import { createAdminClient } from "../../../lib/supabase";
+import { DENOMINATIONS } from "../../../utils/constants";
 
 type CoinCounts = Record<string, number>;
 

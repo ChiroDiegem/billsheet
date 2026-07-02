@@ -214,7 +214,7 @@ export default function KassaList({
         <h1 className="text-2xl lg:text-3xl font-bold border-b-8 border-primary-color">
           {adminMode ? "Kassa's" : "Mijn kassa's"}
         </h1>
-        <Link href="/open-kassa">
+        <Link href="/kassa/new">
           <Button color="primary-color">Open kassa</Button>
         </Link>
       </Group>

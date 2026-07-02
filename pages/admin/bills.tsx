@@ -1,5 +1,5 @@
-import { useUser } from '../contexts/SupabaseContext';
-import BillList from '../components/BillList';
+import { useUser } from '../../contexts/SupabaseContext';
+import BillList from '../../components/BillList';
 
 export default function Admin() {
     const user = useUser();

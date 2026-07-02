@@ -1,11 +1,11 @@
-import { useUser, useSupabaseClient } from '../contexts/SupabaseContext';
+import { useUser, useSupabaseClient } from '../../../contexts/SupabaseContext';
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import type { Profile } from '../types';
+import type { Profile } from '../../../types';
 import { Button, TextInput, Select, Loader, Paper, Text } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import { posts } from "../utils/constants";
-import { createAdminClient } from '../lib/supabase';
+import { posts } from "../../../utils/constants";
+import { createAdminClient } from '../../../lib/supabase';
 
 interface EditUserProps {
     user: Profile;

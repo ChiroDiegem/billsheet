@@ -234,7 +234,7 @@ export default function ContractList({
         <h1 className="text-2xl lg:text-3xl font-bold border-b-8 border-primary-color">
           {adminMode ? "Contracten" : "Mijn contracten"}
         </h1>
-        <Link href="/contract/new">
+        <Link href="/contracts/new">
           <Button color="primary-color">Nieuw contract</Button>
         </Link>
       </Group>
