@@ -1,5 +1,6 @@
 services:
   app:
+    container_name: billsheet
     build:
       context: .
       dockerfile: Dockerfile
