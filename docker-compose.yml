@@ -11,12 +11,12 @@ services:
       - "3000:3000"
     restart: unless-stopped
     networks:
-      - cloudflare_tunnel
+      - cloudflare-tunnel
 
 secrets:
   env_local:
     file: .env.local
 
 networks:
-  cloudflare_tunnel:
+  cloudflare-tunnel:
     external: true
