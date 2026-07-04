@@ -534,7 +534,7 @@ export default function Users() {
                                             <Text weight={700}>Email Whitelist</Text>
                                             <Text size="sm" color="dimmed">Allow individual email addresses outside the configured domains.</Text>
                                         </div>
-                                        <Button onClick={openWhitelistModal}>
+                                        <Button color="primary-color" onClick={openWhitelistModal}>
                                             Manage Email Whitelist
                                         </Button>
                                     </Group>
@@ -673,7 +673,7 @@ export default function Users() {
                         type="email"
                         style={{ flex: 1 }}
                     />
-                    <Button onClick={addWhitelistEmail} loading={whitelistLoading}>
+                    <Button color="primary-color" onClick={addWhitelistEmail} loading={whitelistLoading}>
                         Add
                     </Button>
                 </Group>
