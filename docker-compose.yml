@@ -1,0 +1,22 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      secrets:
+        - env_local
+    env_file:
+      - .env.local
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    networks:
+      - cloudflare_tunnel
+
+secrets:
+  env_local:
+    file: .env.local
+
+networks:
+  cloudflare_tunnel:
+    external: true
