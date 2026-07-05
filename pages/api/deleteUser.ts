@@ -30,7 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const { data: bills, error: billsError } = await supabase
             .from('bills')
             .select('id')
-            .eq('user_id', id);
+            .eq('uid', id);
 
         if (billsError) {
             console.error("Error checking for user bills:", billsError);
