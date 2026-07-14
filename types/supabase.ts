@@ -37,6 +37,7 @@ export interface Database {
           created_at: string | null
           date: string | null
           desc: string
+          drive_file_id: string | null
           iban: string
           id: number
           image: string
@@ -53,6 +54,7 @@ export interface Database {
           created_at?: string | null
           date?: string | null
           desc?: string
+          drive_file_id?: string | null
           iban?: string
           id?: number
           image?: string
@@ -69,6 +71,7 @@ export interface Database {
           created_at?: string | null
           date?: string | null
           desc?: string
+          drive_file_id?: string | null
           iban?: string
           id?: number
           image?: string

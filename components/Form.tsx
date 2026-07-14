@@ -117,9 +117,19 @@ export default function Form() {
       });
 
       if (!error) {
-        // TODO: Send a background API request here once Google Drive upload is implemented server-side.
-        console.log(
-          `[Google Drive] Would upload file: ${formatDate(values.date)}_${values.post}_${values.activity}`,
+        // Fire-and-forget: upload the ticket file to Google Drive in the
+        // background. The bill is resolved server-side by its (unique) storage
+        // image path. Failures are logged server-side and must not block the
+        // user's submission flow.
+        fetch("/api/uploadBillToDrive", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ image: path }),
+        }).catch((err) =>
+          console.error(
+            "[Google Drive] Background upload request failed:",
+            err,
+          ),
         );
 
         setSuccessAlert(true);

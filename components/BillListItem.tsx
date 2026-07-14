@@ -16,6 +16,7 @@ import {
   AiOutlineDownload,
   AiOutlineDelete,
   AiOutlineMail,
+  AiOutlineCloudUpload,
 } from "react-icons/ai";
 import { useState } from "react";
 import Link from "next/link";
@@ -47,6 +48,48 @@ export default function BillListItem({
   const [showEmailPreview, setShowEmailPreview] = useState(false);
   const [emailRecipient, setEmailRecipient] = useState(DEST_MAIL_ADDRESS);
   const [isSendingEmail, setIsSendingEmail] = useState(false);
+  const [driveFileId, setDriveFileId] = useState(bill.drive_file_id);
+  const [isUploadingDrive, setIsUploadingDrive] = useState(false);
+
+  const driveUploaded = Boolean(driveFileId);
+
+  async function handleDriveUpload() {
+    if (!adminMode || isUploadingDrive) return;
+    setIsUploadingDrive(true);
+    try {
+      const response = await fetch("/api/uploadBillToDrive", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ billId: bill.id }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Upload mislukt");
+
+      if (data.skipped) {
+        notifications.show({
+          title: "Google Drive uitgeschakeld",
+          message: "De Google Drive-integratie staat uit.",
+          color: "yellow",
+        });
+        return;
+      }
+
+      setDriveFileId(data.fileId);
+      notifications.show({
+        title: "Succes",
+        message: "Bestand geüpload naar Google Drive",
+        color: "green",
+      });
+    } catch (error: any) {
+      notifications.show({
+        title: "Error",
+        message: error.message || "Upload naar Google Drive mislukt",
+        color: "red",
+      });
+    } finally {
+      setIsUploadingDrive(false);
+    }
+  }
 
   async function handleSendEmail(recipient: string, rotate = 0) {
     if (!adminMode) return false;
@@ -315,15 +358,29 @@ export default function BillListItem({
                 </Tooltip>
               )}
 
-              {/* <button
+              <button
                 onClick={() => setShowDownloadPreview(true)}
                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
               >
                 <AiOutlineDownload size={16} />
-              </button> */}
+              </button>
 
               {adminMode && (
                 <>
+                  <button
+                    onClick={handleDriveUpload}
+                    disabled={isUploadingDrive}
+                    aria-label="Upload naar Google Drive"
+                    className={`inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white ${
+                      isUploadingDrive
+                        ? "bg-gray-400 cursor-not-allowed"
+                        : driveUploaded
+                          ? "bg-green-600 hover:bg-green-700"
+                          : "bg-red-600 hover:bg-red-700"
+                    }`}
+                  >
+                    <AiOutlineCloudUpload size={16} />
+                  </button>
                   <button
                     onClick={() => {
                       setEmailRecipient(DEST_MAIL_ADDRESS);
@@ -434,14 +491,39 @@ export default function BillListItem({
         )}
       </td>
       <td>
-        {/* <button onClick={() => setShowDownloadPreview(true)}>
+        <button onClick={() => setShowDownloadPreview(true)}>
           <AiOutlineDownload />
-        </button> */}
+        </button>
       </td>
       {adminMode && (
         <>
           <td>
-            {/* <button
+            <Tooltip
+              label={
+                driveUploaded
+                  ? "Geüpload naar Google Drive — klik om opnieuw te uploaden"
+                  : "Niet geüpload naar Google Drive — klik om te uploaden"
+              }
+              position="top"
+              withArrow
+            >
+              <button
+                onClick={handleDriveUpload}
+                disabled={isUploadingDrive}
+                className={driveUploaded ? "text-green-600" : "text-red-600"}
+                style={
+                  isUploadingDrive
+                    ? { opacity: 0.5, cursor: "not-allowed" }
+                    : undefined
+                }
+                aria-label="Upload naar Google Drive"
+              >
+                <AiOutlineCloudUpload />
+              </button>
+            </Tooltip>
+          </td>
+          <td>
+            <button
               onClick={() => {
                 setEmailRecipient(DEST_MAIL_ADDRESS);
                 setShowEmailPreview(true);
@@ -454,7 +536,7 @@ export default function BillListItem({
               }
             >
               <AiOutlineMail />
-            </button> */}
+            </button>
           </td>
           {!readOnly && (
             <td>

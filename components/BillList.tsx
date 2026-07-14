@@ -76,7 +76,9 @@ export default function BillList({
   const [endDateInput, setEndDateInput] = useState("");
 
   const isSuperAdmin = currentUser?.admin || false;
-  const readOnly = Boolean(adminMode && !isSuperAdmin && currentUser?.allowed_posts);
+  const readOnly = Boolean(
+    adminMode && !isSuperAdmin && currentUser?.allowed_posts,
+  );
   // Function to fetch bills
   const fetchBills = async () => {
     setLoading(true);
