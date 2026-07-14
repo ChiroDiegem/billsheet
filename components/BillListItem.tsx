@@ -315,12 +315,12 @@ export default function BillListItem({
                 </Tooltip>
               )}
 
-              <button
+              {/* <button
                 onClick={() => setShowDownloadPreview(true)}
                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
               >
                 <AiOutlineDownload size={16} />
-              </button>
+              </button> */}
 
               {adminMode && (
                 <>
@@ -434,14 +434,14 @@ export default function BillListItem({
         )}
       </td>
       <td>
-        <button onClick={() => setShowDownloadPreview(true)}>
+        {/* <button onClick={() => setShowDownloadPreview(true)}>
           <AiOutlineDownload />
-        </button>
+        </button> */}
       </td>
       {adminMode && (
         <>
           <td>
-            <button
+            {/* <button
               onClick={() => {
                 setEmailRecipient(DEST_MAIL_ADDRESS);
                 setShowEmailPreview(true);
@@ -454,7 +454,7 @@ export default function BillListItem({
               }
             >
               <AiOutlineMail />
-            </button>
+            </button> */}
           </td>
           {!readOnly && (
             <td>
