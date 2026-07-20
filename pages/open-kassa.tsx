@@ -111,7 +111,7 @@ export default function OpenKassa() {
       const { error } = await supabase.from("kassa").insert({
         uid: user!.id,
         opened_by: user!.name || "",
-        date: formatDate(values.date),
+        created_at: formatDate(values.date),
         category: values.category,
         sub_category: values.subCategory,
         opening_amount: values.counts as any,
